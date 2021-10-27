@@ -38,12 +38,6 @@ func main() {
 	for {
 		select {
 		case <-start:
-			// an, err := v.Conn.ListAnimations(ctx, &vectorpb.ListAnimationsRequest{})
-			// if err != nil {
-			// 	log.Fatal(err)
-			// }
-			// fmt.Println(an)
-
 			_, _ = v.Conn.PlayAnimation(ctx, &vectorpb.PlayAnimationRequest{
 				Animation: &vectorpb.Animation{
 					Name: "anim_greeting_goodmorning_01",
