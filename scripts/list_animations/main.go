@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
@@ -38,20 +39,13 @@ func main() {
 	for {
 		select {
 		case <-start:
-			_, _ = v.Conn.PlayAnimation(ctx, &vectorpb.PlayAnimationRequest{
-				Animation: &vectorpb.Animation{
-					Name: "anim_greeting_goodmorning_01",
-				},
-			})
+			animations, err := v.Conn.ListAnimations(ctx, &vectorpb.ListAnimationsRequest{})
+			if err != nil {
+				log.Fatal(err)
+			}
 
-			_, _ = v.Conn.SayText(
-				ctx,
-				&vectorpb.SayTextRequest{
-					Text:           *talk,
-					UseVectorVoice: true,
-					DurationScalar: 1.0,
-				},
-			)
+			fmt.Println(animations)
+
 			stop <- true
 			return
 		}
